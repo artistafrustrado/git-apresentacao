@@ -1,0 +1,795 @@
+\documentclass{beamer}
+\usepackage[utf8x]{inputenc}
+\usepackage{ucs}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{lmodern}
+
+\usetheme{CambridgeUS}
+
+%\AtBeginSection[]
+%{
+%\begin{frame}
+%\frametitle{Sumário}
+%\tableofcontents[currentsection]
+%\end{frame}
+%}
+
+\pgfdeclareimage[height=.5cm]{logo}{logo}
+\logo{\pgfuseimage{logo}}
+
+
+\author{Fernando Michelotti}
+\title{Programação Não Linear com GIT}
+\begin{document}
+
+\frame{\titlepage}
+\section{Sumario}
+
+\frame{\tableofcontents}
+
+\section{GIT: SCM ou 'the information manager from hell'}
+
+\begin{frame}
+\frametitle{Mas quem usa GIT?}
+
+\pgfdeclareimage[width=12cm,height=3cm]{who_uses_git}{who_uses_git}
+\pgfuseimage{who_uses_git}<1>
+
+\end{frame}
+
+\begin{frame}
+\frametitle{A Filosofia do GIT}
+\begin{itemize}
+\item Comite logo, comita com frequência;
+\item Um commit representa uma idéia e uma alteração;
+\item Nosso diretório de trabalho, index e repositório são seus rascunhos, seu laboratório, e não o repositório oficial do projeto.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+
+\begin{block}{GIT}
+GIT GIT GIT GIT
+\frametitle{Quem Utiliza GIT}
+\end{block}
+
+
+\end{frame}
+
+\section{GIT: Exemplo de Workflow}
+
+\begin{frame}
+\frametitle{Básico}
+
+\begin{block}{GIT}
+GIT GIT GIT GIT
+\end{block}
+
+\end{frame}
+
+
+
+%O que é Controle de Versão?
+%O que é GIT?
+%Como GIT difere de outros sistemas de controle de Versão?
+%Fluxo de trabalho: Programação não linear.
+%1. O que é programação não linear?
+%2. Como funciona?
+%3. Git branch, git merge, git pull, git push..
+%O que são submudules?
+%Integração com outros sistemas de controle de versão.
+%SVN?
+%Integração com sistemas de gerenciamento de projetos.
+%Hooks?
+%Peculiaridades do Git
+%Soluções de erros/problemas..
+
+\begin{frame}
+\frametitle{O que é GIT?}
+
+\begin{itemize}
+\item GIT => Sistema de gerenciamento de código fonte distribuído
+\end{itemize}
+
+Siglas para sistemas de controle de versão:
+
+\begin{itemize}
+\item VCS – Version Control System
+\item SCM – Source Code Manager
+\item RCS – Revision Control System
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mas o que significa GIT?}
+
+Nome:
+
+Racionalização de Linus Torvalds sobre o nome “GIT”:
+
+"Sou um bastardo egoísta e nomeio todos os meus projetos em homenagem a mim mesmo. Primeiro Linux, agora git."
+
+Linux = Híbrido de Linus e Mimix
+
+Git = gíria britânica que descreve uma pessoa idiota ou sem valor.
+\end{frame}
+
+Quem utiliza?
+GIT é utilizado por:
+
+Git
+Linux Kernel
+Microsoft
+Linkdin
+Facebook
+Perl
+Eclipse
+Gnome
+KDE
+Qt
+Ruby on Rails
+Android
+PostgreSQL
+Debian
+X.org
+Zend Framework 2
+
+História
+História de SCMs:
+SCCS – Source Code Control System:
+Criado no Início dos anos 1970 por M.J. Rochkind
+Início de conceitos ainda pertinentes nos SCMs atuais. ex.: repositório
+Problema: arquivo de LOCK
+- enquanto um usuário trabalha outro não tem acesso ao arquivo
+RCS – Revision Control System:
+Criado no início dos anos 1980 por Walter Tichy
+CVS – Concurrent Version System:
+Criado em 1986 por Dick Grune.
+Extendeu e modificou o modelo do RCS
+Altera sistema de lock de forma a permitir que várias pessoas possam trabalhar
+no mesmo arquivo concorrentemente. Introduzido o conceito de mescla (merge).
+SVN – Subversion
+Criado com o intuito de corrigir as falhas de arquitetura do CVS
+Introduziu:
+- Commit Atomico
+- Melhor suporte a galhos (branches)
+
+História
+História de SCMs:
+BitKeeper e Mercurial
+Distanciam-se do modelo dos sistemas anteriores ao eliminar o repositório central.
+Armazenagem distribuída:
+- cada desenvolvedor possui sua própria cópia completa e compartilhável
+- derivado do modelo P2P (peer-to-peer)
+Mercurial e Monotone
+Utilizam hash para identificar o conteúdo dos arquivos - Influenciou a arquitetura
+do git.
+
+História
+História de SCMs:
+GIT
+Kernel do Linux
+Utilizou tarbals e arquivos de patch.
+Controvérsia com a utilização do BitKeeper (proprietário)
+Problema de Licença do BitKeeper - Larry McVoy removeu a licença de utilização do
+BitKeeper para projetos de código aberto depois de acusar Andrew Tidwell de tentar
+executar engenharia reversa no BitKeeper.
+Linus Torvalds faz acordo com McVoy e abandona BitKeeper no desenvolvimento da
+kernel.
+Linus
+analisa SCMs abertos e conclui que nenhum deles respondem à suas
+necessidades. Entre as opções de voltar a tarballs / patches e criar um SCM próprio
+opta pela segunda.
+
+História
+Torvalds falando sobre CVS:
+
+Veja o CVS como um exemplo o que não fazer; quando em dúvida, tome a
+decisão exatamente oposta..
+Pelos primeiros 10 anos de desenvolvimento da kernel, nós literalmente
+utilizamos tarballs e patches, o qual é um sistema de gerenciamento de código
+muito superior do que CVS, mas eu acabei utilizando CVS por 7 anos em uma
+empresa comercial e eu o odeio com paixão. Quando digo que eu odeio CVS
+com paixão, eu também devo dizer que se há algum usuário de SVN na
+audiência, vocês podem desejar sair. Porque meu ódio pelo CVS significa que
+vejo o Subversion como o projeto mais sem sentido já iniciado. O slogan do
+Subversion foi por um tempo “CVS feito certo”, ou algo assim, e se você começar
+com esse slogan, não há lugar algum que você possa ir. Não existe forma de
+fazer CVS corretamente.
+
+História
+Torvalds falando sobre BitKeeper:
+
+BitKeeper não foi apenas o primeiro sistema de gerenciamento de código que eu
+considerei merecedor de ser utilizado, também foi o sistema de gerenciamento
+de código que me ensinou porque utilizá-los, como você pode realmente fazer as
+coisas. Então git em de muitas formas, mesmo que tecnicamente seja muito
+diferente de BitKeeper (o que era outra meta do projeto, pois eu desejava deixar
+bem claro que não era um clone do BitKeeper), muitos dos fluxos utilizados no
+git vem diretamente dos fluxos nós aprendemos do BitKeeper.
+
+Objetivos
+Objetivos do Git:
+
+Facilitar desenvolvimento distribuído
+Escalável – suportar milhares de usuários
+Execução rápida e eficiente
+Manter integridade e confiança
+Obrigar responsabilidades (enforce accountability)
+Imutabilidade – depois de criados os objetos não podem ser
+alterados.
+Transações atômicas – alterações diferentes mas relacionadas
+são executadas como um todo ou não são executadas.
+Suportar e incentivar desenvolvimento ramificado (Branched
+Development)
+Repositórios completos
+Design interno limpo
+Livre, “como em liberdade”
+
+Como funciona?
+Modelo de Objetos:
+Baseado em estrutura de sistemas de diretórios.
+SHA
+Toda informação necessária para representar a história de um projeto é
+aramazenada em arquivos referenciados plor um nome de objeto de 40 dígitos.
+EX:
+
+6ff87c4664981e4397625791c8ea3bbb5f2279a3
+Nome dos objetos - hash SHA1 do conteúdo do objeto
+Hash SHA1 = função critpográfica
+
+Como funciona?
+Vantagens de SHA:
+
+Conflitos de nomenclatura: virtualmente impossível encontrar 2 objetos
+com o mesmo nome
+
+Comparação: a identificação de objetos idênticos é rápida pois só é
+necessário comparar os nomes
+
+Consistencia de nome em vários repositórios: os nomes dos objetos
+são calculados da mesma forma nos vários repositórios - o mesmo
+conteúdo armazenado em 2 repositórios terá o mesmo nome
+
+Detecção de erros nos objetos: git pode identificar erros na leitura de
+objetos ao conferir o nome do objeto com o hash SHA1 do seu conteúdo.
+
+Como funciona?
+Atributos:
+Tipos:
+
+Blob: utilizado para armazenar dados de arquivos - normalmente um arquivo
+
+Tree: basicamente como um diretório - referencia outros objetos (trees, blobs)
+assim como diretórios referenciam subdiretórios e arquivos
+
+Commit: aponta para uma árvore marcando seu estado em um determinando
+momento. Contém meta informações sobre esse momento como: timestamp,
+autor das alterações desde o último commit, um ponteiro para os commits
+anteriores, etc.
+
+Tag: maneira de marcar commits como sendo especiais. comumente utilizado
+para marcar commits de uma versão específica do app ou algo neste sentido.
+
+Como funciona?
+Atributos:
+
+Como funciona?
+\begin{verbatim}
+.
+|-- citacao.sql
+|-- estilo.css
+|-- funcoes.php
+|-- .git
+| |-- branches
+| |-- COMMIT_EDITMSG
+| |-- config
+| |-- description
+| |-- HEAD
+| |-- hooks
+| | |-- post-receive
+| |-- index
+| |-- info
+| | `-- exclude
+| |-- logs
+| | |-- HEAD
+| | `-- refs
+| |
+|-- heads
+| |
+| `-- master
+| |
+`-- remotes
+| |
+`-- origin
+| |
+`-- master
+| |-- objects
+| | |-- 02
+| | | |-- 3781a376765bf37b30e51f5ba67d8103a86c88
+| | |-- info
+| | `-- pack
+| |-- packed-refs
+| `-- refs
+|
+|-- heads
+|
+| `-- master
+|
+|-- remotes
+|
+| `-- origin
+|
+|
+|-- HEAD
+|
+|
+`-- master
+|
+`-- tags
+`-- index.php
+\end{verbatim}
+
+Como funciona?
+.git/config
+\begin{verbatim}
+[core]
+repositoryformatversion = 0
+filemode = true
+bare = false
+logallrefupdates = true
+[remote "origin"]
+fetch = +refs/heads/*:refs/remotes/origin/*
+url = usuario@servidor:/caminho/projetox/
+[branch "master"]
+remote = origin
+merge = refs/heads/master
+\end{verbatim}
+
+Como funciona?
+Diferenças de outros SCMs:
+Subversion, CVS, Preforce, Mercurial: Utilizam delta storage
+systems para armazenar as diferenças entre um commit e o
+próximo.
+Git: Faz snapshot do estado atual dos arquivos na estrutura de
+árvores a cada commit.
+
+Git gerencia conteúdo, não arquivos.
+
+Git percebe quando conteúdo é movido de um arquivo para outro.
+
+Arquivos/pastas vazios não são armazenados no repositório.
+
+Programação não linear com GIT
+Programação não linear com GIT
+
+Programação não linear com GIT
+Instalação:
+Debian/Ubuntu:
+sudo apt-get install git-core gitk
+Windows:
+Baixar e instalar MsGit e TortoiseGIT
+
+http://code.google.com/p/msysgit/
+
+
+http://code.google.com/p/tortoisegit/
+
+Eclipse:
+
+http://www.eclipse.org/egit/
+
+Programação não linear com GIT
+Configuração
+Usuário:
+\begin{verbatim}
+git config --global user.name "Fernando Michelotti"
+git config --global user.email artista@frustrado.com.br
+\end{verbatim}
+Ambiente:
+\begin{verbatim}
+git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.interactive auto
+git config --global color.status auto
+\end{verbatim}
+
+Projeto exemplo:
+Sistema de citações.
+Descrição dada pelo cliente/chefe:
+“Uma paginazinha com citações de pensadores para os visitantes perceberem
+nossa superioridade intelectual.” (citação direta)
+Dados fornecidos pelo cliente:
+1 citação:
+Sucesso é um péssimo professor. Ele seduz pessoas espertas em pensar que
+eles são incapazes de falhar. - Bill Gates - The Road Ahead (1995)
+Solução proposta:
+KISS (Keep It Simple Stupid)
+1 página + 1 citação = 1 html estático
+
+Implementação:
+Arquivo index.html
+\begin{verbatim}
+<html>
+<head>
+</head>
+<body>
+<h1>Pensamento</h1>
+<p>
+Sucesso é um péssimo professor. Ele seduz pessoas espertas em pensar que eles são incapazes de
+perder. - Bill Gates - The Road Ahead (1995)
+</p>
+</body>
+</html>
+\end{verbatim}
+
+Programação não linear com GIT
+Projeto exemplo:
+Sistema de citações.
+Criar repositório:
+\begin{verbatim}
+$ mkdir projeto
+$ cd projeto
+$ git init
+Initialized empty Git repository in /tmp/projeto/.git/
+$ vim index.html
+$ git add index.html
+$ git commit -a -m 'inicio do projeto'
+[master (root-commit) a8f0cc2] inicio do projeto
+1 files changed, 10 insertions(+), 0 deletions(-)
+create mode 100644 index.html
+\end{verbatim}
+
+Programação não linear com GIT
+Alteração:
+Mostrar uma de 3 citações aleatoriamente toda vez que a página é acessada.
+Criar branch:
+\begin{verbatim}
+$ git checkout -b aleatorio
+Switched to a new branch 'aleatorio'
+$ git mv index.html index.php
+\end{verbatim}
+
+Programação não linear com GIT
+\begin{verbatim}
+<html>
+<head>
+</head>
+<body>
+<h1>Pensamento</h1>
+<?php
+$pensamentos = array();
+$pensamentos[] = "Sucesso é um péssimo professor. Ele seduz pessoas espertas em pensar que
+eles são incapazes de perder. - Bill Gates - The Road Ahead (1995)";
+$pensamentos[] = "Sucesso é um péssimo professor. Ele seduz pessoas espertas em pensar que
+eles são incapazes de perder. - Bill Gates - The Road Ahead (1995)";
+$pensamentos[] = "Sucesso é um péssimo professor. Ele seduz pessoas espertas em pensar que
+eles são incapazes de perder. - Bill Gates - The Road Ahead (1995)";
+echo "<p>". $pensamentos[rand(0, count($pensamentos) - 1)] . "</p>\n";
+?>
+</body>
+</html>
+\end{verbatim}
+
+Programação não linear com GIT
+Commit:
+\begin{verbatim}
+$ git commit -a
+[aleatorio 02a2fb2] Subsituído html estático por escolha aleatória de citações
+utilizando a função rand em chaves de array
+2 files changed, 16 insertions(+), 10 deletions(-)
+delete mode 100644 index.html
+create mode 100644 index.php
+$ git branch
+* aleatorio
+master
+\end{verbatim}
+
+Mesclar (merge):
+\begin{verbatim}
+$ git checkout master
+Switched to branch 'master'
+$ git pull . aleatorio
+From .
+* branch
+
+aleatorio -> FETCH_HEAD
+
+Updating a8f0cc2..02a2fb2
+Fast-forward
+index.html | 10 ---------index.php | 16 ++++++++++++++++
+2 files changed, 16 insertions(+), 10 deletions(-)
+delete mode 100644 index.html
+create mode 100644 index.php
+$ ls
+index.php
+\end{verbatim}
+
+Refatoração:
+\begin{verbatim}
+$ git checkout -b refatoracao
+Switched to a new branch 'refatoracao'
+$ vim funcoes.php
+<?php
+function escolher_citacao()
+{
+$pensamentos = array();
+$pensamentos[] = "Sucesso é um péssimo professor. Ele seduz pessoas espertas em pensar
+que eles são incapazes de perder. - Bill Gates - The Road Ahead (1995)";
+$pensamentos[] = "Sucesso é um péssimo professor. Ele seduz pessoas espertas em pensar
+que eles são incapazes de perder. - Bill Gates - The Road Ahead (1995)";
+$pensamentos[] = "Sucesso é um péssimo professor. Ele seduz pessoas espertas em pensar
+que eles são incapazes de perder. - Bill Gates - The Road Ahead (1995)";
+return $pensamentos[rand(0, count($pensamentos) - 1)];
+
+}
+\end{verbatim}
+
+\begin{verbatim}
+$ vim index.php
+<html>
+<head>
+</head>
+<body>
+<h1>Pensamento</h1>
+<?php
+include_once "funcoes.php";
+echo "<p>". escolher_citacao()."</p>";
+?>
+</body>
+</html>
+\end{verbatim}
+
+Refatoração:
+\begin{verbatim}
+$ git add funcoes.php
+$ git commit -a
+[refatoracao ecd9f1b] Separada lógica da apresentacao atraves da criação de arquivo
+funcoes.php
+2 files changed, 24 insertions(+), 16 deletions(-)
+create mode 100644 funcoes.php
+rewrite index.php (88%)
+\end{verbatim}
+
+Layout:
+\begin{verbatim}
+$ git checkout master
+$ git checkout -b layout
+$ vim estilo.css
+body, td, div, p { font-family: Verdana, Arial, Helvetica, Sans-Serif; font-size: 11px;}
+body { background-color: #EEEEEE; }
+$ vim index.php
+<head>
+<link rel="stylesheet" href="estilo.css" media="screen" />
+</head>
+$ git add estilo.css
+$ git commit -a
+[layout ccff6c9] Colocadas instrucoes de layout em arquivo css externo
+2 files changed, 11 insertions(+), 0 deletions(-)
+create mode 100644 estilo.css
+\end{verbatim}
+
+Mescla:
+\begin{verbatim}
+$ git pull . layout refatoracao
+From .
+* branch
+
+layout
+
+-> FETCH_HEAD
+
+* branch
+
+refatoracao -> FETCH_HEAD
+
+Fast-forwarding to: ccff6c99f190896c3d37f10bfad4813c85f18204
+Trying simple merge with ecd9f1b6e8953bc95c5ab1274a5c19987286e59a
+Simple merge did not work, trying automatic merge.
+Auto-merging index.php
+Merge made by octopus.
+estilo.css | 10 ++++++++++
+funcoes.php | 12 ++++++++++++
+index.php |
+
+9 +++------
+
+3 files changed, 25 insertions(+), 6 deletions(-)
+create mode 100644 estilo.css
+create mode 100644 funcoes.php
+\end{verbatim}
+
+Repositórios remotos:
+Criando repositório remoto:
+\begin{verbatim}
+$ssh usuario@servidor
+$ mkdir projetox
+$ cd projetox/
+$ git init --bare
+Initialized empty Git repository in /tmp/projetox/
+Adicionando repositório remoto à lista do repositotio local:
+git remote add empresax usuario@servidor:/tmp/projetox/
+\end{verbatim}
+
+Repositórios remotos:
+Criando repositório remoto:
+\begin{verbatim}
+$ssh usuario@servidor
+$ mkdir projetox
+$ cd projetox/
+$ git init --bare
+Initialized empty Git repository in /tmp/projetox/
+Adicionando repositório remoto à lista do repositotio local:
+git remote add empresax usuario@servidor:/tmp/projetox/
+\end{verbatim}
+
+Histórico:
+$ git log
+commit 12e615323dee6eb9a3548369981a549133291710
+Merge: ccff6c9 ecd9f1b
+Author: Fernando Michelotti <artista@frustrado.com.br>
+Date: Tue May 31 05:25:52 2011 -0300
+Merge branches 'layout' and 'refatoracao'
+commit ccff6c99f190896c3d37f10bfad4813c85f18204
+Author: Fernando Michelotti <artista@frustrado.com.br>
+Date: Tue May 31 05:21:06 2011 -0300
+Colocadas instrucoes de layout em arquivo css externo
+commit ecd9f1b6e8953bc95c5ab1274a5c19987286e59a
+Author: Fernando Michelotti <artista@frustrado.com.br>
+Date: Tue May 31 05:04:27 2011 -0300
+
+Repositórios remotos:
+Adicionando repositório remoto à lista do repositotio local:
+git remote add empresax usuario@servidor:/tmp/projetox/
+Exportando branch master para repositório remoto (empresax):
+$ git push empresax master
+Counting objects: 17, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (17/17), 2.07 KiB, done.
+Total 17 (delta 5), reused 0 (delta 0)
+Unpacking objects: 100% (17/17), done.
+To /tmp/projetox/
+* [new branch]
+
+master -> master
+
+Repositórios remotos:
+Clonando repositório:
+$ git clone usuario@servidor:/tmp/projetox/
+Cloning into projetox...
+Done.
+$ cd projetox/
+$ vim citacoes.sql
+create database citacao;
+use citacao;
+CREATE TABLE IF NOT EXISTS `citacao` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`citacao` text NOT NULL,
+`autor` varchar(255) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+INSERT INTO `citacao` (`id`, `citacao`, `autor`) VALUES
+(1, 'Sucesso é um péssimo professor. Ele seduz pessoas espertas em pensar que eles são incapazes de perder.', 'Bill Gates - The Road Ahead
+(1995)'),
+(2, 'Sucesso é um péssimo professor. Ele seduz pessoas espertas em pensar que eles são incapazes de perder.', 'Bill Gates - The Road Ahead
+(1995)');
+
+Programação não linear com GIT
+Repositórios remotos:
+$ git add citacao.sql
+$ git commit -a
+[master e973365] adicionado script sql para banco de dados
+1 files changed, 13 insertions(+), 0 deletions(-)
+create mode 100644 citacao.sql
+$ git push origin master
+Counting objects: 4, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 699 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+To /tmp/projetox/
+12e6153..e973365 master -> master
+
+Programação não linear com GIT
+$ git rebase origin master
+Already on 'master'
+Current branch master is up to date.
+$ vim funcoes.php
+$ git commit -a
+[master 023781a] removida array e implementada solucao baseada em banco de dados
+1 files changed, 11 insertions(+), 12 deletions(-)
+rewrite funcoes.php (93%)
+$ git push origin master
+Counting objects: 5, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 503 bytes, done.
+Total 3 (delta 1), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+To /tmp/projetox/
+e973365..023781a master -> master
+
+$ gitk
+
+Faxina:
+$ git branch
+aleatorio
+layout
+* master
+refatoracao
+$ git branch -d aleatorio
+Deleted branch aleatorio (was 02a2fb2).
+$ git branch -d layout
+Deleted branch layout (was ccff6c9).
+$ git branch -d refatoracao
+Deleted branch refatoracao (was ecd9f1b).
+$ git branch
+* master
+
+Tags:
+$ git log
+commit 023781a376765bf37b30e51f5ba67d8103a86c88
+Author: Fernando Michelotti <fernando.michelotti@cnt.com.br>
+Date: Tue May 31 06:19:55 2011 -0300
+removida array e implementada solucao baseada em banco de dados
+commit e973365a451ab0d7fa842d6e2ae6da7d96f1bca6
+Author: Fernando Michelotti <fernando.michelotti@cnt.com.br>
+Date: Tue May 31 06:03:04 2011 -0300
+adicionado script sql para banco de dados
+
+$ git tag estavel-1 023781a376765bf37b30e51f5ba67d8103a86c88
+$ git tag rc1 12e615323dee6eb9a3548369981a549133291710
+$ git tag
+estavel-1
+rc1
+
+Checkout de versões antigas:
+$ git log
+commit 023781a376765bf37b30e51f5ba67d8103a86c88
+Author: Fernando Michelotti <fernando.michelotti@cnt.com.br>
+Date: Tue May 31 06:19:55 2011 -0300
+removida array e implementada solucao baseada em banco de dados
+commit e973365a451ab0d7fa842d6e2ae6da7d96f1bca6
+Author: Fernando Michelotti <fernando.michelotti@cnt.com.br>
+Date: Tue May 31 06:03:04 2011 -0300
+adicionado script sql para banco de dados
+
+Checkout de commits antigos:
+$ git checkout 12e615323dee6eb9a3548369981a549133291710
+Note: checking out '12e615323dee6eb9a3548369981a549133291710'.
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+git checkout -b new_branch_name
+HEAD is now at 12e6153... Merge branches 'layout' and 'refatoracao'
+$ git checkout master
+Previous HEAD position was 12e6153... Merge branches 'layout' and 'refatoracao'
+Switched to branch 'master'
+
+Checkout de uma Tag:
+$ git tag
+estavel-1
+rc1
+$ git checkout rc1
+Note: checking out 'rc1'.
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+git checkout -b new_branch_name
+HEAD is now at 12e6153... Merge branches 'layout' and 'refatoracao'
+
+Conflitos:
+
+\end{document}
