@@ -39,8 +39,9 @@
 \begin{frame}
 \frametitle{O que é GIT?}
 
+\begin{block}{Linus Torvalds}
 \textbf{Sou um bastardo egoísta e nomeio todos os meus projetos em homenagem a mim mesmo. Primeiro Linux, agora GIT.}
-- Linus Torvalds
+\end{block}
 
 \begin{itemize}
 \item \textbf{Linux}: Híbrido de Linus e Mimix
@@ -58,10 +59,125 @@ GIT é um Sistema de Controle de Versões Disitribuído (Distributed Revision Co
 \item Cada diretório de trabalho é um repositório completo - Não depende de acesso à rede ou um servidor central.
 \item GPL2
 \end{itemize}
+\end{frame}
+
+\section{SCMs}
+
+\begin{frame}
+\frametitle{O que é um SCM?}
+
+História de SCMs:
+
+\textbf{SCCS – Source Code Control System}
+
+Criado no Início dos anos 1970 por M.J. Rochkind
+
+Início de conceitos ainda pertinentes nos SCMs atuais. ex.: repositório
+
+Problema: arquivo de LOCK - enquanto um usuário trabalha outro não tem acesso ao arquivo
+
+\textbf{RCS – Revision Control System}
+
+Criado no início dos anos 1980 por Walter Tichy
+
+\end{frame}
+\begin{frame}
+\frametitle{SCM: Histórico}
+
+\textbf{CVS – Concurrent Version System}
+
+Criado em 1986 por Dick Grune.
+
+Extendeu e modificou o modelo do RCS
+
+Altera sistema de lock de forma a permitir que várias pessoas possam trabalhar no mesmo arquivo concorrentemente. Introduzido o conceito de mescla (merge).
+
+\textbf{SVN - Subversion }
+
+Criado com o intuito de corrigir as falhas de arquitetura do CVS
+
+Introduziu:
+\begin{itemize}
+\item Commit Atomico
+\item Melhor suporte a galhos (branches)
+\end{itemize}
+
 
 \end{frame}
 
+\begin{frame}
+\frametitle{SCM: Histórico}
 
+\textbf{BitKeeper e Mercurial}
+
+Distanciam-se do modelo dos sistemas anteriores ao eliminar o repositório central. 
+
+Armazenamento distribuído:
+
+\begin{itemize}
+\item cada desenvolvedor possui sua própria cópia completa e compartilhável
+\item derivado do modelo P2P (peer-to-peer)
+\end{itemize}
+
+\textbf{Mercurial e Monotone}
+
+Utilizam hash para identificar o conteúdo dos arquivos 
+
+Influenciou a arquitetura do GIT.
+\end{frame}
+
+\section{GIT: a origem}
+
+\begin{frame}
+\frametitle{Kernel do Linux}
+
+\begin{itemize}
+\item Utilizou tarbals e arquivos de patch.
+\item Controvérsia com a utilização do BitKeeper (proprietário)
+\item Problema de Licença do BitKeeper - Larry McVoy removeu a licença de utilização do BitKeeper para projetos de código aberto depois de acusar Andrew Tidwell de tentar executar engenharia reversa no BitKeeper.
+\item Linus Torvalds faz acordo com McVoy e abandona BitKeeper no desenvolvimento da kernel.
+\item Linus analisa SCMs abertos e conclui que nenhum deles respondem à suas necessidades. Entre as opções de voltar a tarballs / patches e criar um SCM próprio opta pela segunda.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linux e CVS}
+
+\begin{block}{Linus Torvalds sobre CVS}
+Veja o CVS como um exemplo o que não fazer; quando em dúvida, tome a decisão exatamente oposta..
+Pelos primeiros 10 anos de desenvolvimento da kernel, nós literalmente utilizamos tarballs e patches, o qual é um sistema de gerenciamento de código muito superior do que CVS, mas eu acabei utilizando CVS por 7 anos em uma
+empresa comercial e eu o odeio com paixão. Quando digo que eu odeio CVS com paixão, eu também devo dizer que se há algum usuário de SVN na audiência, vocês podem desejar sair. Porque meu ódio pelo CVS significa que
+vejo o Subversion como o projeto mais sem sentido já iniciado. O slogan do Subversion foi por um tempo “CVS feito certo”, ou algo assim, e se você começar com esse slogan, não há lugar algum que você possa ir. Não existe forma de fazer CVS corretamente.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linux e BitKeeper}
+\begin{block}{Torvalds falando sobre BitKeeper}
+BitKeeper não foi apenas o primeiro sistema de gerenciamento de código que eu considerei merecedor de ser utilizado, também foi o sistema de gerenciamento de código que me ensinou porque utilizá-los, como você pode realmente fazer as coisas. Então git em de muitas formas, mesmo que tecnicamente seja muito diferente de BitKeeper (o que era outra meta do projeto, pois eu desejava deixar bem claro que não era um clone do BitKeeper), muitos dos fluxos utilizados no git vem diretamente dos fluxos nós aprendemos do BitKeeper.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Objetivos}
+
+\begin{itemize}
+\item Facilitar desenvolvimento distribuído
+\item Escalável - suportar milhares de usuários
+\item Execução rápida e eficiente
+\item Manter integridade e confiança
+\item Obrigar responsabilidades (enforce accountability)
+\item Imutabilidade – depois de criados os objetos não podem ser alterados.
+\item Transações atômicas – alterações diferentes mas relacionadas são executadas como um todo ou não são executadas.
+\item Suportar e incentivar desenvolvimento ramificado (Branched Development)
+\item Repositórios completos
+\item Design interno limpo
+\item Livre, “como em liberdade”
+\end{itemize}
+
+\end{frame}
+
+\section{GIT}
 \begin{frame}
 \frametitle{Mas quem usa GIT?}
 
@@ -100,13 +216,6 @@ GIT é um Sistema de Controle de Versões Disitribuído (Distributed Revision Co
 
 \end{frame}
 
-\begin{frame}
-\frametitle{Workflow: Publicando alterações sem repositório}
-
-\pgfdeclareimage[width=5cm,height=6cm]{git-workflow-rsync.png}{git-workflow-rsync.png}
-\pgfuseimage{git-workflow-rsync.png}<1>
-
-\end{frame}
 
 \begin{frame}
 \frametitle{Comandos de uso diário}
@@ -133,6 +242,14 @@ GIT é um Sistema de Controle de Versões Disitribuído (Distributed Revision Co
 
 \pgfdeclareimage[width=6cm,height=7cm]{git-transport.png}{git-transport.png}
 \pgfuseimage{git-transport.png}<1>
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Workflow: Publicando alterações sem repositório}
+
+\pgfdeclareimage[width=5cm,height=6cm]{git-workflow-rsync.png}{git-workflow-rsync.png}
+\pgfuseimage{git-workflow-rsync.png}<1>
 
 \end{frame}
 
