@@ -1,0 +1,94 @@
+\section{Submódulos}
+
+\begin{frame}[fragile]
+\frametitle{Utilizando submódulos}
+
+\begin{verbatim}
+git submodule add GIT_REPO PATH
+\end{verbatim}
+
+Exemplo RACK - Ruby
+
+\scriptsize
+\begin{verbatim}
+# git submodule add git://github.com/chneukirchen/rack.git rack
+Initialized empty Git repository in /opt/subtest/rack/.git/
+remote: Counting objects: 3181, done.
+remote: Compressing objects: 100\% (1534/1534), done.
+remote: Total 3181 (delta 1951), reused 2623 (delta 1603)
+Receiving objects: 100\% (3181/3181), 675.42 KiB | 422 KiB/s, done.
+Resolving deltas: 100\% (1951/1951), done.
+\end{verbatim}
+\normalsize
+
+\scriptsize
+\begin{verbatim}
+# cat .gitmodules 
+[submodule "rack"]
+      path = rack
+      url = git://github.com/chneukirchen/rack.git
+\end{verbatim}
+
+OBS: versões mais antigas do GIT requeriam mais um comando:
+
+\scriptsize
+\begin{verbatim}
+git submodule init
+\end{verbatim}
+\normalsize
+\end{frame}
+\normalsize
+
+
+\begin{frame}[fragile]
+\frametitle{Clonando um projeto com submódulos}
+
+\scriptsize
+\begin{verbatim}
+# git clone git://github.com/schacon/myproject.git
+Initialized empty Git repository in /opt/myproject/.git/
+remote: Counting objects: 6, done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 6 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (6/6), done.
+# cd myproject
+# ls -l
+total 8
+-rw-r--r--  1 schacon  admin   3 Apr  9 09:11 README
+drwxr-xr-x  2 schacon  admin  68 Apr  9 09:11 rack
+# ls rack/
+#
+\end{verbatim}
+\normalsize
+
+\textbf{E a pasta rack está.. vazia :'(}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Clonando um projeto com submódulos}
+
+\scriptsize
+\begin{verbatim}
+# git submodule init
+Submodule 'rack' (git://github.com/chneukirchen/rack.git) registered for path 'rack'
+# git submodule update
+Initialized empty Git repository in /opt/myproject/rack/.git/
+remote: Counting objects: 3181, done.
+remote: Compressing objects: 100% (1534/1534), done.
+remote: Total 3181 (delta 1951), reused 2623 (delta 1603)
+Receiving objects: 100% (3181/3181), 675.42 KiB | 173 KiB/s, done.
+Resolving deltas: 100% (1951/1951), done.
+Submodule path 'rack': checked out '08d709f78b8c5b0fbeb7821e37fa53e69afcf433'
+\end{verbatim}
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Atualizando submódulos}
+\scriptsize
+\begin{verbatim}
+# cd rack
+git pull
+\end{verbatim}
+\normalsize
+\end{frame}

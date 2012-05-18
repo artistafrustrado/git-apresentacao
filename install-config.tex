@@ -1,0 +1,70 @@
+\section{Instalação e Configuração}
+\begin{frame}[fragile]
+\frametitle{Instalação GIT}
+
+\textbf{Debian/Ubuntu}
+
+\begin{verbatim}
+sudo apt-get install git-core gitk
+\end{verbatim}
+
+\textbf{Windows}
+
+Baixar e instalar MsGit e TortoiseGIT
+
+\begin{itemize}
+\item http://code.google.com/p/msysgit/
+\item http://code.google.com/p/tortoisegit/
+\end{itemize}
+
+\textbf{Eclipse}
+
+\begin{itemize}
+\item http://www.eclipse.org/egit/
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{TortoiseGIT - Windows : Context Menu}
+\pgfdeclareimage[width=4cm,height=6cm]{tortoise-ContextMenuDirControl}{tortoise-ContextMenuDirControl}
+\pgfuseimage{tortoise-ContextMenuDirControl}<1>
+\end{frame}
+
+\begin{frame}
+\frametitle{TortoiseGIT - Windows : Commit}
+\pgfdeclareimage[width=9cm,height=6cm]{tortoise-Commit}{tortoise-Commit}
+\pgfuseimage{tortoise-Commit}<1>
+\end{frame}
+
+\begin{frame}
+\frametitle{TortoiseGIT - Windows : Log}
+\pgfdeclareimage[width=9cm,height=6cm]{tortoise-LogMessages}{tortoise-LogMessages}
+\pgfuseimage{tortoise-LogMessages}<1>
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Configuração}
+
+\textbf{Usuário}
+
+\scriptsize
+\begin{verbatim}
+git config --global user.name "Fernando Michelotti" 
+git config --global user.email artista.git@frustrado.com.br
+\end{verbatim}
+\normalsize
+
+\textbf{Ambiente}
+
+\scriptsize
+\begin{verbatim}
+git config --global color.branch auto 
+git config --global color.diff auto 
+git config --global color.interactive auto 
+git config --global color.status auto
+\end{verbatim}
+\normalsize
+\end{frame}

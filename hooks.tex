@@ -1,0 +1,26 @@
+\section{Hooks}
+\begin{frame}
+\frametitle{GIT: Hooks}
+
+Hooks são scripts executados em determinados momentos por comandos do GIT. Encontram-se na pasta \textbf{.git/hooks/}
+
+Para habilitar um hook, nomeie o arquivo com o nome do evento e o proporcione permissões de execução.
+
+\textbf{chmod a+x <file>}
+
+EX.
+
+\textbf{git push}
+
+hooks: pre-commit, post-update
+\end{frame}
+
+\begin{frame}
+\frametitle{GIT: Exemplo de Hook}
+
+\textbf{.git/hooks/pre-commit}
+\scriptsize
+\verbatiminput{hook_pre-commit.sh}
+\normalsize
+\end{frame}
+
