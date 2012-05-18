@@ -376,8 +376,76 @@ hooks: pre-commit, post-update
 \item \textbf{git blame <file>}: mostra quem fez o commit de cada linha do arquivo
 \item \textbf{git blame <file> <commit ID>}: mostra o histórico das linhas antes do commit
 \end{itemize}
+\end{frame}
 
+\section{GIT / SVN}
+
+\begin{frame}
+\frametitle{GIT/SVN: Commit}
+\begin{tabular}{ l r }
+git init & svnadmin create repo \\
+git add . & svn import file://repo \\
+git commit & . \\
+git diff & svn diff | less \\
+git diff rev path & svn diff -rrev path \\
+git apply & patch -p0 \\
+git status & svn status \\
+git checkout path & svn revert path \\
+git add file & svn add file \\
+git rm file  & svn rm file \\
+git mv file & svn mv file \\
+git commit -a & svn commit \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{GIT/SVN: Navegando}
+
+\begin{tabular}{ l r }
+git log & svn log | less \\
+git blame file & svn blame file \\
+git show rev:path/to/file & svn cat url \\
+git show rev:path/to/directory & svn list url
+git show rev & svn log -rrev url ; svn diff -crev url \\
+\end{tabular}
 
 \end{frame}
+
+\begin{frame}
+\frametitle{GIT/SVN: Tagging e Branching}
+\begin{tabular}{ l r }
+git tag -a name & svn copy http://example.com/svn/trunk http://example.com/svn/tags/name \\
+git tag -l & svn list http://example.com/svn/tags/ \\
+git show tag & svn log --limit 1 http://example.com/svn/tags/tag \\
+git branch branch  & svn copy http://example.com/svn/trunk http://example.com/svn/branches/branch  \\
+git checkout branch & svn switch http://example.com/svn/branches/branch \\
+git branch & svn list http://example.com/svn/branches/ \\
+git checkout rev  & svn update -r rev \\
+git checkout prevbranch & svn update \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{GIT/SVN: Merging}
+\begin{tabular}{ l r }
+git merge branch & (assuming the branch was created in revision 20 and you are inside a working copy of trunk) svn merge -r 20:HEAD http://example.com/svn/branches/branch \\
+git cherry-pick rev & svn merge -c rev url \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{GIT/SVN: Remote}
+
+\begin{tabular}{ l r }
+git clone url & svn checkout url \\
+git checkout --track -b branch origin/branch & svn switch url \\
+git pull & svn update \\
+git push remote & \\
+git send-email & \\
+\end{tabular}
+
+\end{frame}
+
+% http://git.or.cz/course/svn.html
 
 \end{document}
